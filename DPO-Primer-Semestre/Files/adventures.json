@@ -1,0 +1,368 @@
+[
+  {
+    "name": "mateo",
+    "combats": [
+      {
+        "combatNumber": 0,
+        "monsters": [
+          {
+            "name": "Warg Rider",
+            "challenge": "Minion",
+            "experience": 6,
+            "hitPoints": 6,
+            "initiative": 2,
+            "damageDice": "d6",
+            "damageType": "Physical"
+          },
+          {
+            "name": "Easterling",
+            "challenge": "Minion",
+            "experience": 4,
+            "hitPoints": 8,
+            "initiative": 0,
+            "damageDice": "d6",
+            "damageType": "Physical"
+          },
+          {
+            "name": "Giant",
+            "challenge": "Lieutenant",
+            "experience": 26,
+            "hitPoints": 35,
+            "initiative": -1,
+            "damageDice": "d12",
+            "damageType": "Physical"
+          }
+        ],
+        "monstersQuantity": [
+          1,
+          2,
+          2
+        ]
+      }
+    ]
+  },
+  {
+    "name": "mac",
+    "combats": [
+      {
+        "combatNumber": 0,
+        "monsters": [
+          {
+            "name": "Snaga",
+            "challenge": "Minion",
+            "experience": 2,
+            "hitPoints": 4,
+            "initiative": 0,
+            "damageDice": "d4",
+            "damageType": "Physical"
+          },
+          {
+            "name": "Goblin",
+            "challenge": "Minion",
+            "experience": 2,
+            "hitPoints": 5,
+            "initiative": 0,
+            "damageDice": "d4",
+            "damageType": "Physical"
+          }
+        ],
+        "monstersQuantity": [
+          3,
+          4
+        ]
+      },
+      {
+        "combatNumber": 0,
+        "monsters": [
+          {
+            "name": "Snaga",
+            "challenge": "Minion",
+            "experience": 2,
+            "hitPoints": 4,
+            "initiative": 0,
+            "damageDice": "d4",
+            "damageType": "Physical"
+          },
+          {
+            "name": "Goblin",
+            "challenge": "Minion",
+            "experience": 2,
+            "hitPoints": 5,
+            "initiative": 0,
+            "damageDice": "d4",
+            "damageType": "Physical"
+          }
+        ],
+        "monstersQuantity": [
+          3,
+          4
+        ]
+      },
+      {
+        "combatNumber": 1,
+        "monsters": [
+          {
+            "name": "Goblin",
+            "challenge": "Minion",
+            "experience": 2,
+            "hitPoints": 5,
+            "initiative": 0,
+            "damageDice": "d4",
+            "damageType": "Physical"
+          }
+        ],
+        "monstersQuantity": [
+          5
+        ]
+      },
+      {
+        "combatNumber": 1,
+        "monsters": [
+          {
+            "name": "Goblin",
+            "challenge": "Minion",
+            "experience": 2,
+            "hitPoints": 5,
+            "initiative": 0,
+            "damageDice": "d4",
+            "damageType": "Physical"
+          }
+        ],
+        "monstersQuantity": [
+          5
+        ]
+      }
+    ]
+  },
+  {
+    "name": "elpepe",
+    "combats": [
+      {
+        "combatNumber": 0,
+        "monsters": [
+          {
+            "name": "Morgoth",
+            "challenge": "Boss",
+            "experience": 168,
+            "hitPoints": 100,
+            "initiative": 4,
+            "damageDice": "d20",
+            "damageType": "Psychical"
+          },
+          {
+            "name": "Goblin",
+            "challenge": "Minion",
+            "experience": 2,
+            "hitPoints": 5,
+            "initiative": 0,
+            "damageDice": "d4",
+            "damageType": "Physical"
+          }
+        ],
+        "monstersQuantity": [
+          1,
+          3
+        ]
+      },
+      {
+        "combatNumber": 0,
+        "monsters": [
+          {
+            "name": "Morgoth",
+            "challenge": "Boss",
+            "experience": 168,
+            "hitPoints": 100,
+            "initiative": 4,
+            "damageDice": "d20",
+            "damageType": "Psychical"
+          },
+          {
+            "name": "Goblin",
+            "challenge": "Minion",
+            "experience": 2,
+            "hitPoints": 5,
+            "initiative": 0,
+            "damageDice": "d4",
+            "damageType": "Physical"
+          }
+        ],
+        "monstersQuantity": [
+          1,
+          3
+        ]
+      },
+      {
+        "combatNumber": 1,
+        "monsters": [
+          {
+            "name": "Warg Rider",
+            "challenge": "Minion",
+            "experience": 6,
+            "hitPoints": 6,
+            "initiative": 2,
+            "damageDice": "d6",
+            "damageType": "Physical"
+          },
+          {
+            "name": "Wraith",
+            "challenge": "Minion",
+            "experience": 6,
+            "hitPoints": 14,
+            "initiative": 0,
+            "damageDice": "d6",
+            "damageType": "Magical"
+          }
+        ],
+        "monstersQuantity": [
+          2,
+          2
+        ]
+      },
+      {
+        "combatNumber": 1,
+        "monsters": [
+          {
+            "name": "Warg Rider",
+            "challenge": "Minion",
+            "experience": 6,
+            "hitPoints": 6,
+            "initiative": 2,
+            "damageDice": "d6",
+            "damageType": "Physical"
+          },
+          {
+            "name": "Wraith",
+            "challenge": "Minion",
+            "experience": 6,
+            "hitPoints": 14,
+            "initiative": 0,
+            "damageDice": "d6",
+            "damageType": "Magical"
+          }
+        ],
+        "monstersQuantity": [
+          2,
+          2
+        ]
+      }
+    ]
+  },
+  {
+    "name": "mikee",
+    "combats": [
+      {
+        "combatNumber": 0,
+        "monsters": [
+          {
+            "name": "Gothmog",
+            "challenge": "Boss",
+            "experience": 148,
+            "hitPoints": 87,
+            "initiative": 3,
+            "damageDice": "d20",
+            "damageType": "Magical"
+          },
+          {
+            "name": "Goblin",
+            "challenge": "Minion",
+            "experience": 2,
+            "hitPoints": 5,
+            "initiative": 0,
+            "damageDice": "d4",
+            "damageType": "Physical"
+          }
+        ],
+        "monstersQuantity": [
+          1,
+          1
+        ]
+      },
+      {
+        "combatNumber": 1,
+        "monsters": [
+          {
+            "name": "Ogre",
+            "challenge": "Minion",
+            "experience": 9,
+            "hitPoints": 21,
+            "initiative": -1,
+            "damageDice": "d10",
+            "damageType": "Physical"
+          },
+          {
+            "name": "Ent",
+            "challenge": "Minion",
+            "experience": 11,
+            "hitPoints": 35,
+            "initiative": -3,
+            "damageDice": "d10",
+            "damageType": "Physical"
+          }
+        ],
+        "monstersQuantity": [
+          2,
+          3
+        ]
+      }
+    ]
+  },
+  {
+    "name": "marcc",
+    "combats": [
+      {
+        "combatNumber": 0,
+        "monsters": [
+          {
+            "name": "Goblin",
+            "challenge": "Minion",
+            "experience": 2,
+            "hitPoints": 5,
+            "initiative": 0,
+            "damageDice": "d4",
+            "damageType": "Physical"
+          },
+          {
+            "name": "Smaug",
+            "challenge": "Boss",
+            "experience": 104,
+            "hitPoints": 61,
+            "initiative": 2,
+            "damageDice": "d20",
+            "damageType": "Physical"
+          }
+        ],
+        "monstersQuantity": [
+          4,
+          1
+        ]
+      },
+      {
+        "combatNumber": 1,
+        "monsters": [
+          {
+            "name": "Orc Captain",
+            "challenge": "Lieutenant",
+            "experience": 18,
+            "hitPoints": 18,
+            "initiative": 1,
+            "damageDice": "d10",
+            "damageType": "Physical"
+          },
+          {
+            "name": "Snaga",
+            "challenge": "Minion",
+            "experience": 2,
+            "hitPoints": 4,
+            "initiative": 0,
+            "damageDice": "d4",
+            "damageType": "Physical"
+          }
+        ],
+        "monstersQuantity": [
+          3,
+          2
+        ]
+      }
+    ]
+  }
+]
