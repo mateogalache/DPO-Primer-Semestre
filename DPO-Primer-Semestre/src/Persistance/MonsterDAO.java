@@ -14,7 +14,7 @@ import java.util.List;
 
 public class MonsterDAO {
 
-    private static final String path = "Files/monsters.json";
+    private static final String path = "DPO-Primer-Semestre/Files/monsters.json";
 
 
     public MonsterDAO(){}

@@ -11,7 +11,7 @@ import java.util.List;
 public class PersonatgeDAO {
 
 
-    private static final String path = "Files/characters.json";
+    private static final String path = "DPO-Primer-Semestre/Files/characters.json";
 
     public PersonatgeDAO(){}
 

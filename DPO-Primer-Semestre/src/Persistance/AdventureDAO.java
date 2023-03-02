@@ -12,7 +12,7 @@ import java.util.List;
 
 public class AdventureDAO {
 
-    private static final String path = "Files/adventures.json";
+    private static final String path = "DPO-Primer-Semestre/Files/adventures.json";
 
 
     public AdventureDAO(){}
