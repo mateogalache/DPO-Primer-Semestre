@@ -2,6 +2,7 @@ package Business;
 
 import Persistance.AdventureDAO;
 import Persistance.PersonatgeDAO;
+import Presentation.Controller;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -12,8 +13,12 @@ public class AdventureManager {
     private static final int minCharacters = 3;
     private List<Combat> combats;
 
+    private Controller controller;
+
     public AdventureManager() {
     }
+
+
 
     /**
      * Function that get the list of combats in the adventure
@@ -55,7 +60,7 @@ public class AdventureManager {
     public void createAdventure(String adventureName, List<Combat> combats) throws IOException {
         // Create Adventure Object
         Adventure adventure = new Adventure(adventureName, combats);
-        AdventureDAO adventureDAO = new AdventureDAO();
+        AdventureDAO adventureDAO = new AdventureDAO(dataType());
         // Add adventure to JsonFIle
         adventureDAO.addAdventure(adventure);
     }
@@ -68,7 +73,7 @@ public class AdventureManager {
      * @throws IOException
      */
     public List<Adventure> getAdventures() throws FileNotFoundException, IOException{
-        AdventureDAO adventureDAO = new AdventureDAO();
+        AdventureDAO adventureDAO = new AdventureDAO(dataType());
         return adventureDAO.getAdventures();
     }
 
@@ -78,8 +83,12 @@ public class AdventureManager {
      * @throws FileNotFoundException
      */
     public boolean ableToPlayAdventure() throws FileNotFoundException{
-        PersonatgeDAO personatgeDAO = new PersonatgeDAO();
+        PersonatgeDAO personatgeDAO = new PersonatgeDAO(dataType());
         return personatgeDAO.readCharactersFromJson().size() >= minCharacters;
+    }
+
+    private int dataType() {
+        return controller.loadType();
     }
 
     /**
@@ -90,7 +99,7 @@ public class AdventureManager {
      * @throws IOException
      */
     public boolean checkName(String adventureName) throws FileNotFoundException, IOException{
-        AdventureDAO adventureDAO = new AdventureDAO();
+        AdventureDAO adventureDAO = new AdventureDAO(dataType());
         List<Adventure> adventures = adventureDAO.getAdventures();
         boolean able = true;
 
@@ -102,14 +111,26 @@ public class AdventureManager {
         }
         return able;
     }
+    public void readAdventuresFromRemote() throws IOException {
+        AdventureDAO adventureDAO = new AdventureDAO(dataType());
+        adventureDAO.readAdventuresfromRemote();
+    }
+    public void readAdventuresFromJson() throws FileNotFoundException {
+        AdventureDAO adventureDAO = new AdventureDAO(dataType());
+        adventureDAO.readAdventuresFromJson();
+    }
 
     /**
      * Function that calls 'get adventures' in adventureDAO that reads the adeventure JSON
      * @throws FileNotFoundException
      */
-    public void readAdventures() throws FileNotFoundException {
-        AdventureDAO adventureDAO = new AdventureDAO();
-        adventureDAO.getAdventures();
+    public void readAdventures() throws IOException {
+        AdventureDAO adventureDAO = new AdventureDAO(dataType());
+        if(dataType() == 1){
+            adventureDAO.readAdventuresFromJson();
+        } else{
+            adventureDAO.readAdventuresfromRemote();
+        }
     }
 
     /**

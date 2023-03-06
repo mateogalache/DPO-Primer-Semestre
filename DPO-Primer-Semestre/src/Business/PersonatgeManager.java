@@ -12,12 +12,19 @@ public class PersonatgeManager {
    // private List<Personatge> personatges;
     private String path;
 
+    private Controller controller;
+
+    private int dataType(){
+        return controller.loadType();
+    }
+
     /**
      * Function that creeates the 'personatgeDAO' and gets the json path
      * @throws FileNotFoundException
      */
     public PersonatgeManager() throws FileNotFoundException {
-        PersonatgeDAO personatgeDAO = new PersonatgeDAO();
+
+        PersonatgeDAO personatgeDAO = new PersonatgeDAO(dataType());
         setPath(personatgeDAO.getPath());
     }
 
@@ -81,7 +88,7 @@ public class PersonatgeManager {
     public void createAdventurer(String name, String playerName, int level, int body, int mind, int spirit, String adventurerType) throws IOException{
         int xpPoints = calculateInitialLevel(level);
         Adventurer adventurer = new Adventurer(name, playerName, xpPoints, body, mind, spirit, adventurerType);
-        PersonatgeDAO personatgeDAO = new PersonatgeDAO();
+        PersonatgeDAO personatgeDAO = new PersonatgeDAO(dataType());
         personatgeDAO.addCharacter(adventurer);
     }
 
@@ -105,7 +112,7 @@ public class PersonatgeManager {
      * @throws IOException
      */
     public boolean checkIfCharacterNameExists(String name) throws IOException {
-        PersonatgeDAO personatgeDAO = new PersonatgeDAO();
+        PersonatgeDAO personatgeDAO = new PersonatgeDAO(dataType());
         List<Personatge> personatgeList = personatgeDAO.readCharactersFromJson();
         return inListCharacter(name,personatgeList);
     }
@@ -133,8 +140,8 @@ public class PersonatgeManager {
      * @return the list of the characters
      * @throws FileNotFoundException
      */
-    public List<String> getAllCharacters() throws FileNotFoundException{
-        PersonatgeDAO personatgeDAO = new PersonatgeDAO();
+    public List<String> getAllCharactersFromJson() throws FileNotFoundException{
+        PersonatgeDAO personatgeDAO = new PersonatgeDAO(dataType());
         List<Personatge> personatges = personatgeDAO.readCharactersFromJson();
         List<String> names = new ArrayList<String>();
 
@@ -144,6 +151,26 @@ public class PersonatgeManager {
         return names;
     }
 
+    public List<String> getAllCharactersFromRemote() throws IOException {
+        PersonatgeDAO personatgeDAO = new PersonatgeDAO(dataType());
+
+        List<Personatge> personatges = personatgeDAO.readCharactersFromRemote();
+        List<String> names = new ArrayList<String>();
+
+        for (int i = 0; i < personatges.size(); i++) {
+            names.add(personatges.get(i).getNomPersonatge());
+        }
+        return names;
+    }
+
+    public List<String> getAllCharacters() throws IOException,FileNotFoundException {
+        if(dataType() == 1){
+            return getAllCharactersFromJson();
+        } else{
+            return getAllCharactersFromRemote();
+        }
+    }
+
     /**
      * Function that get the characters from the list that are from a specific player
      * @param playerName player name
@@ -151,7 +178,7 @@ public class PersonatgeManager {
      * @throws FileNotFoundException
      */
     public List<String> getCharactersFromPlayer(String playerName) throws FileNotFoundException{
-        PersonatgeDAO personatgeDAO = new PersonatgeDAO();
+        PersonatgeDAO personatgeDAO = new PersonatgeDAO(dataType());
         List<Personatge> personatges = personatgeDAO.readCharactersFromJson();
         List<String> names = new ArrayList<String>();
         playerName = playerName.toUpperCase();
@@ -181,7 +208,7 @@ public class PersonatgeManager {
      */
     public Personatge getCharacterFromIndex(int characterIndex, List<String> characterNames) throws FileNotFoundException{
         // first we get the name of the player you see
-        PersonatgeDAO personatgeDAO = new PersonatgeDAO();
+        PersonatgeDAO personatgeDAO = new PersonatgeDAO(dataType());
         return personatgeDAO.searchCharacter(characterNames.get(characterIndex));
     }
 
@@ -191,7 +218,7 @@ public class PersonatgeManager {
      * @throws IOException
      */
     public void deleteCharacter(String nomPersonatge) throws IOException {
-        PersonatgeDAO personatgeDAO = new PersonatgeDAO();
+        PersonatgeDAO personatgeDAO = new PersonatgeDAO(dataType());
 
         // we won't check if it's null because we previously checked that the name of the character exists
         Personatge personatge = getCharacterFromName(nomPersonatge, personatgeDAO);

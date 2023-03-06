@@ -18,7 +18,13 @@ public class Menu {
         System.out.println("\____/\_/\_/  \|\_/   \____/\____\  \_/\_\\_/   \____\");
         */
     }
-
+    public int askData(){
+        System.out.println("Do you want to use your local or cloud data?");
+        System.out.println("\t1) Local data");
+        System.out.println("\t2) Cloud data");
+        System.out.print("-> Answer: ");
+        return askOption(1,2);
+    }
     /**
      *  Function that shows the initial menu and the options available to the user
      * @param min integer that describes the minimum value option

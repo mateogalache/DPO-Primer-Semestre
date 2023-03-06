@@ -5,8 +5,10 @@ import Business.Combat;
 import Business.Monster;
 import Business.Personatge;
 import com.google.gson.*;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.*;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,15 +16,43 @@ public class AdventureDAO {
 
     private static final String path = "DPO-Primer-Semestre/Files/adventures.json";
 
+    private final boolean remote;
 
-    public AdventureDAO(){}
+    public AdventureDAO(int dataType){
+        if(dataType == 1){
+            this.remote = false;
+        }else {
+            this.remote = true;
+        }
+    }
+
+
+
+    public List<Adventure> readAdventuresfromRemote() throws IOException {
+        ApiHelper apiHelper = new ApiHelper();
+        String response = apiHelper.getFromUrl("https://balandrau.salle.url.edu/dpoo/S1-Project_44/adventures");
+
+        Gson gson = new Gson();
+        Type listType = new TypeToken<List<Adventure>>() {}.getType();
+        List<Adventure> adventures = gson.fromJson(response, listType);
+
+        return adventures;
+    }
+
+    public List<Adventure> getAdventures() throws IOException {
+        if(remote){
+            return readAdventuresfromRemote();
+        } else{
+            return readAdventuresFromJson();
+        }
+    }
 
     /**
      * Function that returns all the adventures saved in adventure data file
      * @return list of adventures read
      * @throws FileNotFoundException when file is not found
      */
-    public List<Adventure> getAdventures() throws FileNotFoundException{
+    public List<Adventure> getAdventuresFromJson() throws FileNotFoundException{
         return readAdventuresFromJson();
     }
 
@@ -67,7 +97,7 @@ public class AdventureDAO {
      * @throws FileNotFoundException if the file is not found
      * @throws IllegalAccessError
      */
-    private List<Adventure> readAdventuresFromJson() throws FileNotFoundException, IllegalAccessError {
+    public List<Adventure> readAdventuresFromJson() throws FileNotFoundException, IllegalAccessError {
         JsonElement fileElement = JsonParser.parseReader(new FileReader(path));
 
         if (fileElement.isJsonNull()) {

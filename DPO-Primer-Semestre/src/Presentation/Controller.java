@@ -25,8 +25,9 @@ public class Controller {
      */
     public void run() throws IOException{
         menu = new Menu();
-        int option = 0;
-        if(loadData()) {
+        int option = 0,dataOption = 0;
+        dataOption = menu.askData();
+        if(loadData(dataOption)) {
             menu.dataSuccessfullyLoaded();
             while (option != 5) {
                 boolean ableToPlay = ableToPlayAdventures();
@@ -36,6 +37,11 @@ public class Controller {
             }
 
         }
+    }
+
+    public int loadType(){
+
+        return menu.askData();
     }
 
     /**
@@ -394,7 +400,7 @@ public class Controller {
      * @return
      * @throws FileNotFoundException
      */
-    private Party createParty(int partySize, PersonatgeManager personatgeManager) throws FileNotFoundException{
+    private Party createParty(int partySize, PersonatgeManager personatgeManager) throws IOException {
         Party party = new Party(partySize);
 
         for (int i = 0; i < partySize; i++) {
@@ -677,7 +683,7 @@ public class Controller {
      * @return returns the list of the names of the characters
      * @throws FileNotFoundException
      */
-    private List<String> listCharacters(String playerName, PersonatgeManager personatgeManager) throws FileNotFoundException{
+    private List<String> listCharacters(String playerName, PersonatgeManager personatgeManager) throws IOException {
         List<String> names = new ArrayList<>();
         if (Objects.equals(playerName, "")) {
             names = personatgeManager.getAllCharacters();
@@ -695,18 +701,13 @@ public class Controller {
         return names;
     }
 
-
-    /**
-     * Function that checks if the data from json can be read or not.
-     */
-    private boolean loadData() {
+    private boolean loadDataLocal(){
         boolean character;
         boolean monster;
         boolean adventures;
-        // Carreguem el fitxer de personatges
         try {
             PersonatgeManager manager = new PersonatgeManager();
-            manager.getAllCharacters();
+            manager.getAllCharactersFromJson();
             // carrguem el fitxer de Monstres
             character = true;
 
@@ -717,7 +718,7 @@ public class Controller {
 
         try {
             CombatManager combatManager = new CombatManager();
-            combatManager.readMonsters();
+            combatManager.readMonstersFromJson();
             monster = true;
         } catch (FileNotFoundException exception) {
             menu.errorLoadingFiles(MONSTERS_FILE_NAME);
@@ -727,13 +728,61 @@ public class Controller {
         // Carreguem el fitxer d'aventures
         try {
             AdventureManager adventureManager = new AdventureManager();
-            adventureManager.readAdventures();
+            adventureManager.readAdventuresFromJson();
             adventures = true;
-        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
             menu.errorLoadingFiles(ADVENTURES_FILE_NAME);
             adventures = false;
         }
         return character && monster && adventures;
+    }
+
+    private boolean loadDataRemote(){
+        boolean characterApi;
+        boolean monsterApi;
+        boolean adventuresApi;
+        try {
+            PersonatgeManager manager = new PersonatgeManager();
+            manager.getAllCharactersFromRemote();
+            // carrguem el fitxer de Monstres
+            characterApi = true;
+        } catch (IOException e) {
+            menu.errorLoadingFiles(CHARACTERS_FILE_NAME);
+            characterApi = false;
+        }
+        try {
+            AdventureManager adventureManager = new AdventureManager();
+            adventureManager.readAdventuresFromRemote();
+            adventuresApi = true;
+        } catch (IOException e) {
+            menu.errorLoadingFiles(ADVENTURES_FILE_NAME);
+            adventuresApi = false;
+        }
+        try {
+            CombatManager combatManager = new CombatManager();
+            combatManager.readMonstersFromRemote();
+            monsterApi = true;
+        } catch (IOException e) {
+            menu.errorLoadingFiles(MONSTERS_FILE_NAME);
+            monsterApi = false;
+        }
+
+        return characterApi && monsterApi && adventuresApi;
+    }
+    /**
+     * Function that checks if the data from json can be read or not.
+     */
+    private boolean loadData(int dataOption) {
+
+        if (dataOption == 1){
+             return loadDataLocal();
+        }else{
+            if (loadDataRemote()){
+                return loadDataRemote();
+            } else{
+                return loadDataLocal();
+            }
+        }
     }
 
 

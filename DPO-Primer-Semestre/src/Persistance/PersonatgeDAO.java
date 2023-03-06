@@ -3,17 +3,49 @@ package Persistance;
 import Business.Adventurer;
 import Business.Personatge;
 import com.google.gson.*;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.*;
+import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.lang.reflect.Type;
 import java.util.List;
 
 public class PersonatgeDAO {
 
-
+    private final boolean remote;
     private static final String path = "DPO-Primer-Semestre/Files/characters.json";
 
-    public PersonatgeDAO(){}
+    public PersonatgeDAO(int dataType){
+
+        if(dataType == 1){
+            this.remote = false;
+        }else {
+            this.remote = true;
+        }
+    }
+
+
+    public List<Personatge> readCharacter() throws IOException {
+        if (remote){
+            return readCharactersFromRemote();
+        } else{
+            return readCharactersFromJson();
+        }
+    }
+
+
+    public List<Personatge> readCharactersFromRemote() throws IOException {
+        ApiHelper apiHelper = new ApiHelper();
+        String response = apiHelper.getFromUrl("https://balandrau.salle.url.edu/dpoo/S1-Project_44/characters");
+
+        Gson gson = new Gson();
+        Type listType = new TypeToken<List<Personatge>>() {}.getType();
+        List<Personatge> characters = gson.fromJson(response, listType);
+
+        return characters;
+    }
 
     /**
      * Function that reads all the characters from de DataFile

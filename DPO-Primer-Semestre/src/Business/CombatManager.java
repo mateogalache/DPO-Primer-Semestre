@@ -1,8 +1,10 @@
 package Business;
 
 import Persistance.MonsterDAO;
+import Presentation.Controller;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.*;
 
 import static Business.QuickSort.quickSort;
@@ -21,7 +23,10 @@ public class CombatManager {
     // to get the initial party lifePoints we can check it through the party attribute (party.getLifePoints())
     private int[] partyLifePoints; // actual party lifePoints
 
-
+    private Controller controller;
+    public int dataType(){
+        return controller.loadType();
+    }
 
     public CombatManager(){};
 
@@ -31,7 +36,7 @@ public class CombatManager {
      * @throws FileNotFoundException if the file of monsters is not found
      */
     public List<Monster> listMonsters() throws FileNotFoundException {
-        MonsterDAO monsterDAO = new MonsterDAO();
+        MonsterDAO monsterDAO = new MonsterDAO(dataType());
         return monsterDAO.readMonstersFromJson();
     }
 
@@ -90,7 +95,7 @@ public class CombatManager {
      * @throws FileNotFoundException if the file is not found
      */
     public List<String> listMonsterNames() throws FileNotFoundException {
-        MonsterDAO monsterDAO = new MonsterDAO();
+        MonsterDAO monsterDAO = new MonsterDAO(dataType());
         List<Monster> monsters = monsterDAO.readMonstersFromJson();
         List<String> monsterNames = new ArrayList<>();
 
@@ -106,7 +111,7 @@ public class CombatManager {
      * @throws FileNotFoundException if the file is not found
      */
     public List<String> listMonsterChallenges() throws FileNotFoundException {
-        MonsterDAO monsterDAO = new MonsterDAO();
+        MonsterDAO monsterDAO = new MonsterDAO(dataType());
         List<Monster> monsters = monsterDAO.readMonstersFromJson();
         List<String> monsterChallenge = new ArrayList<>();
 
@@ -443,7 +448,7 @@ public class CombatManager {
      * @throws FileNotFoundException if the file is not found
      */
     public boolean isMonster(String attackerName) throws FileNotFoundException{
-        MonsterDAO monsterDAO = new MonsterDAO();
+        MonsterDAO monsterDAO = new MonsterDAO(dataType());
         List<Monster> monsters = monsterDAO.readMonstersFromJson();
 
         boolean found = false;
@@ -737,9 +742,24 @@ public class CombatManager {
      * function that reads all monsters disponible
      * @throws FileNotFoundException if the file is not found
      */
-    public void readMonsters() throws FileNotFoundException {
-        MonsterDAO monsterDAO = new MonsterDAO();
+    public void readMonsters() throws IOException {
+        MonsterDAO monsterDAO = new MonsterDAO(dataType());
+        if (dataType() == 1){
+            readMonstersFromJson();
+        } else{
+            readMonstersFromRemote();
+        }
+
+    }
+
+    public void readMonstersFromJson() throws FileNotFoundException {
+        MonsterDAO monsterDAO = new MonsterDAO(dataType());
         List<Monster> monsters = monsterDAO.readMonstersFromJson();
+    }
+
+    public void readMonstersFromRemote() throws IOException {
+        MonsterDAO monsterDAO = new MonsterDAO(dataType());
+        List<Monster> monsters = monsterDAO.readMonstersfromRemote();
     }
 
     /**
@@ -751,7 +771,7 @@ public class CombatManager {
      * @throws FileNotFoundException if the file is not found
      */
     public Combat createCombat(int combatIndex, List<String> monsters, List<Integer> monsterQuantity) throws FileNotFoundException{
-        MonsterDAO monsterDAO = new MonsterDAO();
+        MonsterDAO monsterDAO = new MonsterDAO(dataType());
         List<Monster> monsterList = new ArrayList<>();
 
         for (String monsterName: monsters) {

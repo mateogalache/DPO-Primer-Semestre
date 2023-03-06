@@ -1,14 +1,15 @@
 package Persistance;
 
 import Business.Monster;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import Business.Personatge;
+import com.google.gson.*;
+import com.google.gson.reflect.TypeToken;
 
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,8 +17,27 @@ public class MonsterDAO {
 
     private static final String path = "DPO-Primer-Semestre/Files/monsters.json";
 
+    private final boolean remote;
 
-    public MonsterDAO(){}
+    public MonsterDAO(int dataType){
+        if(dataType == 1){
+            this.remote = false;
+        }else {
+            this.remote = true;
+        }
+    }
+
+
+    public List<Monster> readMonstersfromRemote() throws IOException {
+        ApiHelper apiHelper = new ApiHelper();
+        String response = apiHelper.getFromUrl("https://balandrau.salle.url.edu/dpoo/shared/monsters");
+
+        Gson gson = new Gson();
+        Type listType = new TypeToken<List<Monster>>() {}.getType();
+        List<Monster> monsters = gson.fromJson(response, listType);
+
+        return monsters;
+    }
 
     /**
      * Function that reads all the monsters from the monster data file and return it as a list
